@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# M1-Simplifi
 
-## Getting Started
+A simple tool to help download transactions from M1 in a format upload-able to Quicken-Simplifi
 
-First, run the development server:
+⚠️ **SECURITY WARNING** ⚠️
+This tool is provided as-is with no guarantees. Never trust random code from the internet with your financial data or credentials. Always review the source code and run locally.
+
+## TODO
+
+I need help with some of these as I don't have these accounts in order to test them.
+
+- [ ] Add credit card transaction support
+- [ ] Add borrow/lending transaction support
+- Anything else, leave an issue to discuss further https://github.com/johnslemmer/m1-simplifi/issues/new
+- Or open a pull request
+
+## Local Development Setup
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) - Fast all-in-one JavaScript runtime & toolkit
+- [Git](https://git-scm.com/) - Version control system
+
+### Getting Started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# Clone the repository
+git clone https://github.com/johnslemmer/m1-simplifi.git
+
+# Install dependencies
+cd m1-simplifi
+bun install
+
+# Run development server
 bun dev
+
+# navigate to http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### If the M1 GraphQLl Schema/API Changes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Regenerate the GraphQL client:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+bun generate-client
+bun typecheck
+```
 
-## Learn More
+And address any fallout.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Bun](https://bun.sh/) - JavaScript runtime & package manager
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [React](https://react.dev/) - JavaScript UI Framework
+- [Next.js](https://nextjs.org) - React Metaframework
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - React component library
+- [@genql/cli](https://genql.dev/) - for making type-safe graphql requests a breeze
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Special thanks to these AI for making something like this quicker to whip up:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [v0.dev](https://v0.dev/) - UI prototyping tool
+- [VS Code Claude Sonnet](https://anthropic.com/) - AI assistance
