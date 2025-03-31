@@ -187,6 +187,9 @@ export async function getTransactions({
               merchant: true,
               categoryLabel: true,
               amount: true,
+              status: {
+                label: true,
+              },
             },
           },
         },
@@ -201,6 +204,8 @@ export async function getTransactions({
   rawTransactions.node.transactions?.edges?.forEach((edge) => {
     const transaction = edge?.node;
     if (!transaction) return;
+    if (transaction.status?.label === 'Canceled') return;
+    if (transaction.status?.label === 'Pending') return;
 
     transactions.push({
       date: new Date(transaction.date),
