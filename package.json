@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "generate-client": "bunx --bun @genql/cli --endpoint https://lens.m1.com/graphql --output ./src/lib/generated-m1-client",
     "lint": "next lint",
     "typecheck": "tsc --noEmit"
   },

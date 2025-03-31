@@ -30,13 +30,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { toast } from 'sonner';
-
-interface Account {
-  id: string;
-  name: string;
-  balance: number;
-  type: string;
-}
+import { getAccounts, type Account, getTransactions } from '@/lib/queries';
+import { toCSVString } from '@/lib/csv';
 
 export default function M1FinanceExporter() {
   const [accessToken, setAccessToken] = useState('');
@@ -58,26 +53,8 @@ export default function M1FinanceExporter() {
     setIsLoading(true);
 
     try {
-      // This is a placeholder for the actual GraphQL query
-      // Replace this with your actual implementation
-      console.log('Using access token:', accessToken);
-
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Mock data - replace with actual GraphQL query results
-      const mockAccounts: Account[] = [
-        { id: 'acc1', name: 'Roth IRA', balance: 12543.87, type: 'retirement' },
-        { id: 'acc2', name: 'Checking', balance: 3254.12, type: 'cash' },
-        {
-          id: 'acc3',
-          name: 'Investment',
-          balance: 8765.43,
-          type: 'investment',
-        },
-      ];
-
-      setAccounts(mockAccounts);
+      const accounts = await getAccounts(accessToken);
+      setAccounts(accounts);
     } catch (error) {
       console.error('Error fetching accounts:', error);
       toast.error(
@@ -90,21 +67,14 @@ export default function M1FinanceExporter() {
 
   const exportAccount = async (accountId: string, accountName: string) => {
     setIsExporting(true);
-    console.log(
-      `Exporting ${transactionCount} transactions from account ${accountId}`,
-    );
 
     try {
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Mock CSV data - replace with actual data formatting
-      const csvContent = `Date,Description,Amount
-2023-01-15,Deposit,1000.00
-2023-01-22,Dividend,25.43
-2023-02-05,Withdrawal,-150.00`;
-
-      // Create and download the CSV file
+      const transactions = await getTransactions({
+        accessToken,
+        accountId,
+        first: transactionCount,
+      });
+      const csvContent = toCSVString(transactions);
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -361,7 +331,7 @@ export default function M1FinanceExporter() {
                       {account.name}
                     </TableCell>
                     <TableCell className="text-right">
-                      ${account.balance.toFixed(2)}
+                      {account.balance}
                     </TableCell>
                     <TableCell className="text-right capitalize">
                       {account.type}
