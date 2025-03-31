@@ -314,7 +314,6 @@ export default function M1FinanceExporter() {
         <CardContent>
           <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             <Input
-              type="password"
               placeholder="Paste your M1 Finance access token here"
               value={accessToken}
               disabled={isLoading}
