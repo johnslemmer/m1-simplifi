@@ -29,6 +29,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { toast } from 'sonner';
 
 interface Account {
   id: string;
@@ -79,7 +80,9 @@ export default function M1FinanceExporter() {
       setAccounts(mockAccounts);
     } catch (error) {
       console.error('Error fetching accounts:', error);
-      // Handle error appropriately
+      toast.error(
+        'Error fetching accounts. Please check your access token and try again.',
+      );
     } finally {
       setIsLoading(false);
     }
@@ -115,7 +118,7 @@ export default function M1FinanceExporter() {
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error exporting account:', error);
-      // Handle error appropriately
+      toast.error('Error exporting account. Please try again later.');
     } finally {
       setIsExporting(false);
       setIsExportDialogOpen(false);
