@@ -219,9 +219,9 @@ export default function M1FinanceExporter() {
                 Why not just use my login email and password?
               </h3>
               <p className="text-sm">
-                Because you shouldn't trust random people on the internet with
-                that information. At least this token has an expiration, meaning
-                it could only potentially be misused for a few hours.
+                Because you shouldn&apos;t trust random people on the internet
+                with that information. At least this token has an expiration,
+                meaning it could only potentially be misused for a few hours.
               </p>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function M1FinanceExporter() {
             to look at the code and even run it yourself, thus taking on very
             little risk with your sensitive information. This tool runs
             completely in your browser - no data is sent to any server except
-            M1. But again, don't trust random people on the internet.
+            M1. But again, don&apos;t trust random people on the internet.
           </span>
         </AlertDescription>
       </Alert>
