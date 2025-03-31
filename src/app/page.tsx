@@ -240,9 +240,9 @@ export default function M1FinanceExporter() {
               GitHub <ExternalLink className="h-3 w-3" />
             </a>{' '}
             to look at the code and even run it yourself, thus taking on very
-            little risk with your sensitive authorization token. This tool runs
+            little risk with your sensitive information. This tool runs
             completely in your browser - no data is sent to any server except
-            M1.
+            M1. But again, don't trust random people on the internet.
           </span>
         </AlertDescription>
       </Alert>
