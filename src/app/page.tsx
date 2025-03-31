@@ -292,7 +292,7 @@ export default function M1FinanceExporter() {
                   <TableHead>Account Name</TableHead>
                   <TableHead className="text-right">Balance</TableHead>
                   <TableHead className="text-right">Type</TableHead>
-                  <TableHead className="text-right">Action</TableHead>
+                  <TableHead></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -307,7 +307,7 @@ export default function M1FinanceExporter() {
                     <TableCell className="text-right capitalize">
                       {account.type}
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="flex justify-end">
                       <Button
                         variant="outline"
                         size="sm"
