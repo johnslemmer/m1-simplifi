@@ -112,9 +112,12 @@ export default function M1FinanceExporter() {
     <div className="container mx-auto py-8 px-4 max-w-4xl">
       {/* "Why does this exist?" button */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">
-          M1 Finance to Quicken Simplifi Transaction Exporter
-        </h1>
+        <div>
+          <h1 className="text-3xl font-bold">M1 to Simplifi</h1>
+          <p className="text-lg text-muted-foreground">
+            M1 Finance to Quicken Simplifi Transaction Exporter
+          </p>
+        </div>
         <Button
           variant="ghost"
           size="sm"
@@ -154,9 +157,10 @@ export default function M1FinanceExporter() {
                   href="https://community.simplifimoney.com/discussion/11225/m1-finance-not-showing-money-market-account-when-syncing"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary mt-1 hover:underline"
+                  className="text-primary mt-1 underline inline-flex items-center gap-1"
                 >
-                  Simplifi Community Discussion
+                  Simplifi Community Discussion{' '}
+                  <ExternalLink className="h-3 w-3" />
                 </a>
               </li>
               <li>
@@ -164,9 +168,9 @@ export default function M1FinanceExporter() {
                   href="https://www.reddit.com/r/M1Finance/comments/1i235gt/issues_connecting_to_simplifi/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary mt-1 hover:underline"
+                  className="text-primary mt-1 underline inline-flex items-center gap-1"
                 >
-                  Reddit r/M1Finance
+                  Reddit r/M1Finance <ExternalLink className="h-3 w-3" />
                 </a>
               </li>
             </ul>
@@ -187,8 +191,10 @@ export default function M1FinanceExporter() {
             I&apos;m a random person on the internet. Don&apos;t trust random
             people on the internet. You can go to my{' '}
             <a
-              href="https://github.com/yourusername/m1-finance-exporter"
+              href="https://github.com/johnslemmer/m1-simplifi"
               className="underline font-medium items-center gap-1 inline-flex"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               GitHub <ExternalLink className="h-3 w-3" />
             </a>{' '}
@@ -232,7 +238,13 @@ export default function M1FinanceExporter() {
                 console.log(JSON.parse(sessionStorage.getItem(&quot;m1_finance_auth.accessToken&quot;)))
               </div>
             </li>
-            <li>Copy the token that appears and paste it below</li>
+            <li>
+              Copy the token that appears and paste it below. It should look
+              something like:
+              <div className="bg-muted p-3 rounded-md my-2 font-mono text-sm overflow-x-auto break-all">
+                eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+              </div>
+            </li>
           </ol>
         </CardContent>
       </Card>
