@@ -40,9 +40,18 @@ interface Account {
 export default function M1FinanceExporter() {
   const [accessToken, setAccessToken] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [accounts, setAccounts] = useState<Account[] | null>(null);
   const [isExplanationOpen, setIsExplanationOpen] = useState(false);
   const [isTokenExplanationOpen, setIsTokenExplanationOpen] = useState(false);
+  const [transactionCount, setTransactionCount] = useState(50);
+  const [isExportDialogOpen, setIsExportDialogOpen] = useState(false);
+  const [selectedAccountId, setSelectedAccountId] = useState<string | null>(
+    null,
+  );
+  const [selectedAccountName, setSelectedAccountName] = useState<string | null>(
+    null,
+  );
 
   const fetchAccounts = async () => {
     setIsLoading(true);
@@ -77,9 +86,10 @@ export default function M1FinanceExporter() {
   };
 
   const exportAccount = async (accountId: string, accountName: string) => {
-    // This is a placeholder for the actual export functionality
-    // Replace this with your actual implementation
-    console.log(`Exporting account ${accountId}`);
+    setIsExporting(true);
+    console.log(
+      `Exporting ${transactionCount} transactions from account ${accountId}`,
+    );
 
     try {
       // Simulate API call with timeout
@@ -106,6 +116,9 @@ export default function M1FinanceExporter() {
     } catch (error) {
       console.error('Error exporting account:', error);
       // Handle error appropriately
+    } finally {
+      setIsExporting(false);
+      setIsExportDialogOpen(false);
     }
   };
 
@@ -299,22 +312,24 @@ export default function M1FinanceExporter() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             <Input
               type="password"
               placeholder="Paste your M1 Finance access token here"
               value={accessToken}
+              disabled={isLoading}
               onChange={(e) => setAccessToken(e.target.value)}
               className="font-mono"
             />
             <Button
+              type="submit"
               onClick={fetchAccounts}
               disabled={!accessToken || isLoading}
               className="w-full sm:w-auto"
             >
               {isLoading ? 'Loading...' : 'Get My Accounts'}
             </Button>
-          </div>
+          </form>
         </CardContent>
       </Card>
 
@@ -353,7 +368,11 @@ export default function M1FinanceExporter() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => exportAccount(account.id, account.name)}
+                        onClick={() => {
+                          setSelectedAccountId(account.id);
+                          setSelectedAccountName(account.name);
+                          setIsExportDialogOpen(true);
+                        }}
                         className="flex items-center gap-1"
                       >
                         <Download className="h-4 w-4" /> Export
@@ -383,6 +402,47 @@ export default function M1FinanceExporter() {
           </div>
         )}
       </Card>
+
+      <Dialog open={isExportDialogOpen} onOpenChange={setIsExportDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Export Transactions</DialogTitle>
+            <DialogDescription>
+              How many recent transactions would you like to export?
+            </DialogDescription>
+          </DialogHeader>
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <Input
+              type="number"
+              min="1"
+              max="1000"
+              value={transactionCount}
+              disabled={isExporting}
+              onChange={(e) => setTransactionCount(Number(e.target.value))}
+            />
+            <div className="flex justify-end gap-2">
+              <Button
+                type="reset"
+                variant="outline"
+                onClick={() => setIsExportDialogOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                disabled={isExporting}
+                onClick={() => {
+                  if (selectedAccountId && selectedAccountName) {
+                    exportAccount(selectedAccountId, selectedAccountName);
+                  }
+                }}
+              >
+                {isExporting ? 'Downloading...' : 'Export'}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
