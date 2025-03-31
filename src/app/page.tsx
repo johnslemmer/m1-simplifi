@@ -42,6 +42,7 @@ export default function M1FinanceExporter() {
   const [isLoading, setIsLoading] = useState(false);
   const [accounts, setAccounts] = useState<Account[] | null>(null);
   const [isExplanationOpen, setIsExplanationOpen] = useState(false);
+  const [isTokenExplanationOpen, setIsTokenExplanationOpen] = useState(false);
 
   const fetchAccounts = async () => {
     setIsLoading(true);
@@ -183,6 +184,33 @@ export default function M1FinanceExporter() {
         </DialogContent>
       </Dialog>
 
+      <Dialog
+        open={isTokenExplanationOpen}
+        onOpenChange={setIsTokenExplanationOpen}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>About the Access Token</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p>
+              This is a limited-use key to access your M1 Finance account. This
+              tool uses it to retrieve your account information and
+              transactions.
+            </p>
+            <div className="bg-muted p-4 rounded-lg">
+              <h3 className="font-medium mb-2">
+                Why not just use my login email and password?
+              </h3>
+              <p className="text-sm">
+                Because you shouldn't trust random people on the internet with
+                that information. At least this token has an expiration, meaning
+                it could only potentially be misused for a few hours.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
       <Alert variant="destructive" className="mb-8">
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Security Warning</AlertTitle>
@@ -208,7 +236,21 @@ export default function M1FinanceExporter() {
 
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Step 1: Get Your M1 Finance Access Token</CardTitle>
+          <CardTitle className="flex justify-between">
+            Step 1: Get Your M1 Finance Access Token
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsTokenExplanationOpen(true)}
+              className="flex items-center gap-1 text-muted-foreground hover:text-foreground p-0 h-auto mb-2"
+            >
+              <HelpCircle className="h-4 w-4" />
+              <span className="hidden sm:block">
+                What is this and why do you need it?
+              </span>
+              <span className="block sm:hidden">What is this?</span>
+            </Button>
+          </CardTitle>
           <CardDescription>
             You&apos;ll need to obtain your access token from M1 Finance to
             proceed.
