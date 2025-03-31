@@ -360,8 +360,23 @@ export default function M1FinanceExporter() {
             </div>
           )}
         </CardContent>
-        <CardFooter className="text-sm text-muted-foreground">
-          Exported files will be in CSV format compatible with Quicken Simplifi.
+        <CardFooter className="text-sm text-muted-foreground flex-col">
+          <span>
+            Exported files will be in CSV format compatible with Quicken
+            Simplifi.
+          </span>
+          <span>
+            See Simplifi's documentation on{' '}
+            <a
+              href="https://support.simplifi.quicken.com/en/articles/4413430-how-to-manually-import-transactions#h_a40057a0e7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary mt-1 underline inline-flex items-center gap-1"
+            >
+              how to import <ExternalLink className="h-3 w-3" />
+            </a>
+            .
+          </span>
         </CardFooter>
 
         {/* Overlay that appears when no accounts are loaded */}
